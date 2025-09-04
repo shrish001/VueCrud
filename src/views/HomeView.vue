@@ -1,7 +1,12 @@
 <script setup lang="ts">
 // src/views/HomeView.vue
+import { onMounted } from 'vue';
 import { useStudentsStore } from '../stores/studentsStore'
 const studentStore = useStudentsStore();
+onMounted(()=>{
+  studentStore.fetchStudents();
+  console.log(studentStore.students);
+})
 </script>
 
 <template>
@@ -12,11 +17,11 @@ const studentStore = useStudentsStore();
 
     <div class="overflow-x-auto">
       <table class="min-w-full border border-gray-300 rounded-lg shadow">
-        <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
+        <thead v-show="true" class="bg-gray-100 text-gray-700 uppercase text-sm">
           <tr>
             <th class="px-6 py-3 border-b text-left">Name</th>
-            <th class="px-6 py-3 border-b text-left">Major</th>
-            <th class="px-6 py-3 border-b text-left">GPA</th>
+            <th class="px-6 py-3 border-b text-left">username</th>
+            <th class="px-6 py-3 border-b text-left">email</th>
             <th class="px-6 py-3 border-b text-center" colspan="2">Actions</th>
           </tr>
         </thead>
@@ -27,8 +32,8 @@ const studentStore = useStudentsStore();
             class="hover:bg-gray-50"
           >
             <td class="px-6 py-4 border-b">{{ student.name }}</td>
-            <td class="px-6 py-4 border-b">{{ student.age }}</td>
-            <td class="px-6 py-4 border-b">{{ student.grade }}</td>
+            <td class="px-6 py-4 border-b">{{ student.username }}</td>
+            <td class="px-6 py-4 border-b">{{ student.email }}</td>
             <td class="px-4 py-4 border-b text-center">
               <RouterLink :to="`/update/${student.id}`" class="text-blue-600 hover:underline">Edit</RouterLink>
             </td>

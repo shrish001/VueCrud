@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import StudentCreate from '../views/Student/CreateView.vue';
-import StudentUpdate from '../views/Student/UpdateView.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+import StudentCreate from '@/views/Student/CreateView.vue';
+import StudentUpdate from '@/views/Student/UpdateView.vue';
 
 
 const router = createRouter({
@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/create',
       name: 'create',
-      component: StudentCreate,
+      component: (StudentCreate),
     },
     {
       path: '/update/:id',
