@@ -1,6 +1,6 @@
 
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 interface Student {
   id: number
@@ -50,13 +50,13 @@ export const useStudentsStore = defineStore('students', {
           const newStudent = await response.json();
           this.students.push(newStudent);
           this.dataPresent = this.students.length > 0;
-          alert('Student added successfully.');
+          useToast().success('Student added successfully.');
         }else{
-          alert('Failed to add student.');
+          useToast().error('Failed to add student.');
         }
       } catch (error : any) {
         this.error = error.message;
-        alert(error.message);
+        useToast().error(error.message);
       }
     },
     async updateStudent(updatedStudent: Student) {
@@ -75,12 +75,12 @@ export const useStudentsStore = defineStore('students', {
           if (index !== -1) {
             this.students[index] = data;
           }
-          alert('Student updated successfully.');
+          useToast().success('Student updated successfully.');
         }else{
-          alert('Failed to update the student.');
+          useToast().error('Failed to update the student.');
         }
       }catch(error:  any){
-        alert(error.message);
+        useToast().error(error.message);
       }
       const index = this.students.findIndex((student) => student.id === updatedStudent.id)
       if (index !== -1) {
@@ -92,15 +92,15 @@ export const useStudentsStore = defineStore('students', {
         method: 'DELETE',
       }).then((response) => {
         if (response.ok) {
-          alert('Student deleted successfully.');
+          useToast().success('Student deleted successfully.');
           this.students = this.students.filter((student) => student.id !== studentId)
           this.dataPresent = this.students.length > 0;
         } else {
-          alert('Failed to delete the student.');
+          useToast().error('Failed to delete the student.');
         }
       }).catch((error) => {
         this.error = error.message;
-        alert(error.message);
+        useToast().error(error.message);
       });
     },
     getStudentById(id: number) {

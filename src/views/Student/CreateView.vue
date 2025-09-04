@@ -34,6 +34,7 @@
         const studentStore = useStudentsStore();
         const createStudent = () => {
           studentStore.addStudent(student.value);
+          student.value = { id: null, name: '', username: '', email: '' }; 
         };
 
 </script>
